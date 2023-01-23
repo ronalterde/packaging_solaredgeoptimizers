@@ -1,7 +1,7 @@
 """ My module """
 import requests
 import json
-#import jsonfinder
+import jsonfinder
 import logging
 from requests import Session
 from datetime import datetime, timedelta
@@ -172,15 +172,17 @@ class solaredgeoptimizers:
 
         return maincookiestring
 
-    def decodeResult(result):
-        json_result = ""
-        for _, __, obj in jsonfinder(result, json_only=True):
-            json_result = obj
-            break
-        else:
-            raise ValueError("data not found")
 
-        return json_result
+def decodeResult(result):
+    json_result = ""
+    for _, __, obj in jsonfinder.jsonfinder(result, json_only=True):
+        json_result = obj
+        break
+    else:
+        raise ValueError("data not found")
+
+    return json_result
+
 
 class SolarEdgeSite:
     def __init__(self, json_obj):
